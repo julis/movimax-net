@@ -1,6 +1,6 @@
 namespace MovimaxNet.Models;
 
-public class Film
+public class Film : IModel
 {
     public int Id { get; set; }
     public string Title { get; set; }
