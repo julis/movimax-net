@@ -4,27 +4,27 @@ namespace MovimaxNet.Repositories;
 
 internal class InMemoryFilmRepository : IFilmRepository
 {
-    public void Add(Film data)
+    public Task<bool> Add(Film data)
     {
         throw new NotImplementedException();
     }
 
-    public void Delete(int id)
+    public Task<bool> Delete(int id)
     {
         throw new NotImplementedException();
     }
 
-    public Film Get(int id)
+    public Task<Film> Get(int id)
     {
         throw new NotImplementedException();
     }
 
-    public ICollection<Film> GetAll()
+    public Task<IEnumerable<Film>> GetAll()
     {
         throw new NotImplementedException();
     }
 
-    public void Update(Film data)
+    public Task<bool> Update(Film data)
     {
         throw new NotImplementedException();
     }
