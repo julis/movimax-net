@@ -2,12 +2,12 @@ using MovimaxNet.Models;
 
 namespace MovimaxNet.Repositories;
 
-public interface IRepository<T> where T : IModel 
+public interface IRepository<T> where T : class 
 {
-    ICollection<T> GetAll();
-    T Get(int id);
-    void Add(T data);
-    void Delete(int id);
-    void Update(T data);
+    Task<IEnumerable<T>> GetAll();
+    Task<T> Get(int id);
+    Task<bool> Add(T data);
+    Task<bool> Delete(int id);
+    Task<bool> Update(T data);
     
 }
