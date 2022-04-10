@@ -19,12 +19,13 @@ namespace MovimaxNet.WebApi.Controllers
 
         // GET: api/Film
         [HttpGet]
-        public async Task<IEnumerable<Film>> Get()
+        public async Task<ActionResult<IEnumerable<Film>>> Get()
         {
-            return await _repositoryService.FilmRepository.GetAll();
+            var films = await _repositoryService.FilmRepository.GetAll();
+            return Ok(films);
         }
 
-        // GET api/<FilmController>/5
+        // GET api/Film/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
@@ -34,24 +35,46 @@ namespace MovimaxNet.WebApi.Controllers
 
         // POST api/Film
         [HttpPost]
-        public async Task<IActionResult> Post(Film film)
+        public async Task<IActionResult> Create(Film film)
         {
             await _repositoryService.FilmRepository.Add(film);
             await _repositoryService.SaveChangesAsync();
-            return CreatedAtAction("Get", new { film.Id }, film);
+            return CreatedAtAction(nameof(Get), new { film.Id }, film);
 
         }
 
-        // PUT api/<FilmController>/5
+        // PUT api/Film/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> Update(int id, Film film)
         {
+            if (film is null)
+                return BadRequest(nameof(film));
+
+            if (id != film.Id)
+                return BadRequest(nameof(film));
+
+            var existingFilm = _repositoryService.FilmRepository.Get(id);
+            if(existingFilm is null)
+                return NotFound();
+
+            await _repositoryService.FilmRepository.Update(film);
+            await _repositoryService.SaveChangesAsync();
+
+            return NoContent();                
         }
 
-        // DELETE api/<FilmController>/5
+        // DELETE api/Film/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            var film = _repositoryService.FilmRepository.Get(id);
+
+            if (film is null)
+                return NotFound();
+
+            await _repositoryService.FilmRepository.Delete(id);
+
+            return NoContent();
         }
     }
 }
