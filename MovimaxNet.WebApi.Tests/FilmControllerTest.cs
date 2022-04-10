@@ -54,7 +54,26 @@ namespace MovimaxNet.WebApi.Tests
             Assert.Equal(filmId, resultValue.Id);
         }
 
+        [Fact]
+        public async Task Create_ReturnsNewlyCreatedFilm()
+        {
+            // Arrange
+            var newFilm = GetFilm();
+            var mockRepositoryService = new Mock<IRepositoryService>();
+            mockRepositoryService.Setup( service => service.FilmRepository.Add(newFilm))
+                .ReturnsAsync(true);             
+            var filmController = new FilmController(mockRepositoryService.Object);
 
+            // Act 
+            var result = await filmController.Create(newFilm);
+
+            // Assert
+            var createdResult = Assert.IsType<CreatedAtActionResult>(result);
+            var returnFilm = Assert.IsType<Film>(createdResult.Value);
+
+            Assert.Equal(newFilm.Id, returnFilm.Id);
+            Assert.Equal(newFilm.Title, returnFilm.Title);
+        }
 
         private IEnumerable<Film> GetFilms()
         {
