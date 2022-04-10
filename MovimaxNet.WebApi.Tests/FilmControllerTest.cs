@@ -1,11 +1,11 @@
-﻿using Moq;
+﻿using Microsoft.AspNetCore.Mvc;
+using Moq;
 using MovimaxNet.Models;
 using MovimaxNet.Repositories;
 using MovimaxNet.WebApi.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -14,7 +14,7 @@ namespace MovimaxNet.WebApi.Tests
     public class FilmControllerTest
     {
         [Fact]
-        public async Task Get_Should_Return_List_Film()
+        public async Task Get_Should_ReturnListFilm()
         {
             // Arrange
             var mockRepositoryService = new Mock<IRepositoryService>();
@@ -25,12 +25,36 @@ namespace MovimaxNet.WebApi.Tests
 
 
             // Act 
-            var results = await filmController.Get();
+            var result = await filmController.Get();
 
             // Assert
-            var actionResult = Assert.IsAssignableFrom<IEnumerable<Film>>(results);
-            Assert.Equal(2, actionResult.Count());
+            var actionResult = Assert.IsType<ActionResult<IEnumerable<Film>>>(result);
+            var okResult = Assert.IsType<OkObjectResult>(actionResult.Result);
+
+            var listResult = Assert.IsAssignableFrom<IEnumerable<Film>>(okResult.Value);
+            Assert.Equal(2, listResult.Count());
         }
+
+        [Fact]
+        public async Task GetById_Should_ReturnSingleFilm()
+        {
+            // Arrange
+            int filmId = 1;
+            var mockRepositoryService = new Mock<IRepositoryService>();
+            mockRepositoryService.Setup(service => service.FilmRepository.Get(filmId))
+                .ReturnsAsync(GetFilm());
+            var filmController = new FilmController(mockRepositoryService.Object);
+
+            // Act 
+            var result = await filmController.Get(filmId);
+
+            // Assert
+            var okResult = Assert.IsType<OkObjectResult>(result);            
+            var resultValue = Assert.IsType<Film>(okResult.Value);
+            Assert.Equal(filmId, resultValue.Id);
+        }
+
+
 
         private IEnumerable<Film> GetFilms()
         {
@@ -56,6 +80,20 @@ namespace MovimaxNet.WebApi.Tests
                 PosterUrl = "https://img.imdb.com/image.jpg"
             });
             return films;
+        }
+
+        private Film GetFilm()
+        {
+            return new Film
+            {
+                Id = 1,
+                Title = "Film 1",
+                Description = "Film 1 Desc",
+                ReleaseDate = new DateTime(2019, 12, 21),
+                RuntimeMinute = 0,
+                Revenue = "$0",
+                PosterUrl = "https://img.imdb.com/image.jpg"
+            };
         }
     }
 }
