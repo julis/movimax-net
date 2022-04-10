@@ -75,6 +75,44 @@ namespace MovimaxNet.WebApi.Tests
             Assert.Equal(newFilm.Title, returnFilm.Title);
         }
 
+        [Fact]
+        public async Task Delete_ReturnsNewlyDeletedFilm()
+        {
+            int filmId = 1;
+            var mockRepositoryService = new Mock<IRepositoryService>();
+            mockRepositoryService.Setup(service => service.FilmRepository.Get(filmId))
+                .ReturnsAsync(GetFilm());
+            mockRepositoryService.Setup(service => service.FilmRepository.Delete(filmId))
+                .ReturnsAsync(true);
+            var filmController = new FilmController(mockRepositoryService.Object);
+
+            // Act 
+            var result = await filmController.Delete(filmId);
+
+            // Assert
+            Assert.IsType<NoContentResult>(result);            
+        }
+        
+        [Fact]
+        public async Task Update_ReturnsUpdatedFilm()
+        {
+            // Arrange
+            int filmId = 1;
+            var updatedFilm = GetFilm();
+            var mockRepositoryService = new Mock<IRepositoryService>();
+            mockRepositoryService.Setup(service => service.FilmRepository.Get(filmId))
+                .ReturnsAsync(GetFilm());
+            mockRepositoryService.Setup(service => service.FilmRepository.Update(updatedFilm))
+                .ReturnsAsync(true);
+            var filmController = new FilmController(mockRepositoryService.Object);
+
+            // Act 
+            var result = await filmController.Update(filmId, updatedFilm);
+
+            // Assert
+            Assert.IsType<NoContentResult>(result);
+        }
+
         private IEnumerable<Film> GetFilms()
         {
             var films = new List<Film>();
