@@ -1,19 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30114.105
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovimaxNet.WebApi", "MovimaxNet.WebApi\MovimaxNet.WebApi.csproj", "{0F1E1DB3-2789-4A4A-BC21-C7FDBE6FAF72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovimaxNet.WebApi", "MovimaxNet.WebApi\MovimaxNet.WebApi.csproj", "{0F1E1DB3-2789-4A4A-BC21-C7FDBE6FAF72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovimaxNet.Models", "MovimaxNet.Models\MovimaxNet.Models.csproj", "{F203F277-ABD2-464E-8303-1D115DFC9C23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovimaxNet.Models", "MovimaxNet.Models\MovimaxNet.Models.csproj", "{F203F277-ABD2-464E-8303-1D115DFC9C23}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovimaxNet.Repositories", "MovimaxNet.Repositories\MovimaxNet.Repositories.csproj", "{0C974559-DE86-468D-A828-69EEB0F29961}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovimaxNet.WebApi.Tests", "MovimaxNet.WebApi.Tests\MovimaxNet.WebApi.Tests.csproj", "{100B08C0-8A65-43D9-A05A-F93CAB175A4A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{0F1E1DB3-2789-4A4A-BC21-C7FDBE6FAF72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -24,5 +25,19 @@ Global
 		{F203F277-ABD2-464E-8303-1D115DFC9C23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F203F277-ABD2-464E-8303-1D115DFC9C23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F203F277-ABD2-464E-8303-1D115DFC9C23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C974559-DE86-468D-A828-69EEB0F29961}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C974559-DE86-468D-A828-69EEB0F29961}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C974559-DE86-468D-A828-69EEB0F29961}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C974559-DE86-468D-A828-69EEB0F29961}.Release|Any CPU.Build.0 = Release|Any CPU
+		{100B08C0-8A65-43D9-A05A-F93CAB175A4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{100B08C0-8A65-43D9-A05A-F93CAB175A4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{100B08C0-8A65-43D9-A05A-F93CAB175A4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{100B08C0-8A65-43D9-A05A-F93CAB175A4A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {79291A63-423D-4142-AFA4-F9BADADC43D8}
 	EndGlobalSection
 EndGlobal
